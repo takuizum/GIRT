@@ -200,20 +200,20 @@ while(t < 100){
   plot(a1t, par_2pl$a, ylim = c(0, 3), xlim = c(0, 3), xlab = "IRT_estimates", ylab = "true");abline(a=0, b = 1, col='red')
   plot(a1t, par_mpl$a1, ylim = c(0, 3), xlim = c(0, 3), xlab = "2DMIRT_estimates", ylab = "true");abline(a=0, b = 1, col='red')
   
-  # difficulty
-  plot(bt, par_gpl$b, ylim = c(-4, 4), xlim = c(-4, 4), xlab = "GIRT_estimates", ylab = "true");abline(a=0, b = 1, col='red')
-  plot(bt, par_2pl$b, ylim = c(-4, 4), xlim = c(-4, 4), xlab = "IRT_estimates", ylab = "true");abline(a=0, b = 1, col='red')
-  plot(bt, par_mpl$b, ylim = c(-4, 4), xlim = c(-4, 4), xlab = "2DMIRT_estimates", ylab = "true");abline(a=0, b = 1, col='red')
+  # difficulty (Why need to dibided by 1.7 ?)
+  plot(bt/1.7, par_gpl$b, ylim = c(-4, 4), xlim = c(-4, 4), xlab = "GIRT_estimates", ylab = "true");abline(a=0, b = 1, col='red')
+  plot(bt/1.7, par_2pl$b, ylim = c(-4, 4), xlim = c(-4, 4), xlab = "IRT_estimates", ylab = "true");abline(a=0, b = 1, col='red')
+  plot(bt/1.7, par_mpl$b, ylim = c(-4, 4), xlim = c(-4, 4), xlab = "2DMIRT_estimates", ylab = "true");abline(a=0, b = 1, col='red')
   
   # rmse calc
-  rmse_a <- rmse(x = at, y = list(par_gpl$a, par_2pl$a))
-  names(rmse_a) <- c("girt", "irt")
-  rmse_b <- rmse(x = bt, y = list(par_gpl$b, par_2pl$b))
-  names(rmse_b) <- c("girt", "irt")
+  rmse_a <- rmse(x = at, y = list(par_gpl$a, par_2pl$a, par_mpl$a1))
+  names(rmse_a) <- c("girt", "irt", "mirt")
+  rmse_b <- rmse(x = bt, y = list(par_gpl$b, par_2pl$b, par_mpl$a1))
+  names(rmse_b) <- c("girt", "irt", "mirt")
   # AIC
-  aic <- c("girt" = -2*last(fit_gpl$mll_history) + 2*30*2, "irt" = fit_2pl@Fit$AIC)
+  aic <- c("girt" = -2*last(fit_gpl$mll_history) + 2*30*2, "irt" = fit_2pl@Fit$AIC, "mirt" = fit_mpl@Fit$AIC)
   # n of iter
-  iter <- c("girt" = length(fit_gpl$mll_history) - 1, "irt" = fit_2pl@OptimInfo$converged)
+  iter <- c("girt" = length(fit_gpl$mll_history) - 1, "irt" = fit_2pl@OptimInfo$converged, "mirt" = fit_mpl@OptimInfo$iter)
   # contain the estiamte data in list
-  result_obj1[[t]] <- list("rmse_a" = rmse_a, "rmse_b" = rmse_b, "girtpar" = par_gpl, "irtpar" = par_2pl, "aic" = aic, "iter" = iter)
+  result_obj2[[t]] <- list("rmse_a" = rmse_a, "rmse_b" = rmse_b, "girtpar" = par_gpl, "irtpar" = par_2pl, "mirtpar" <- par_mpl, "aic" = aic, "iter" = iter)
 }
