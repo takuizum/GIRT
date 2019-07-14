@@ -180,7 +180,7 @@ while(t < 100){
   data <- simdata(a = at, d = -bt*(a1t^2+a2t^2), Theta = tt, itemtype = "dich") # b = -d/a then d = -a*b
   # GIRT estimation
   fit_gpl <- try(estGip(data, fc = 1, IDc = 0, phi_dist = "gbeta", 
-                        min_ph = 0, max_ph = 4, eEM = 0.0001, Nphi = 10, D = 1.0, maxiter_em = 200))
+                        min_ph = 0, max_ph = 4, eEM = 0.0001, Nphi = 10, D = 1.0, maxiter_em = 200, print = 3))
   if(class(fit_gpl) == "try-error"){
     t <- t - 1
     next
