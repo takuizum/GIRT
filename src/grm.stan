@@ -26,7 +26,7 @@ model {
   sigma_d ~ cauchy(0, 5);
   for(i in 1:N){
     for(j in 1:J){
-      Y[i,j] ~ ordered_logistic(a[j] * theta[i], a[j] * d[j,1:(K[j]-1)]);  // normal GRM
+      Y[i,j] ~ ordered_logistic(a[j] * theta[i], d[j]);  // normal GRM
     }
   }
 }

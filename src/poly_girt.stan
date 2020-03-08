@@ -21,14 +21,13 @@ model {
   for(j in 1:J){
     for(k in 1:(K-1)){
       d[j, k] ~ normal(mu_d, sigma_d);
-      // d[j, k] ~ normal(0,1);
     }
   }
   mu_d ~ normal(0, 5);
   sigma_d ~ cauchy(0, 5);
   for(i in 1:N){
     for(j in 1:J){
-      Y[i,j] ~ ordered_logistic(1.702 * a[j]/sqrt(1 + phi[i]^2*a[j]^2) * theta[i], 1.702 * a[j]/sqrt(1 + phi[i]^2*a[j]^2)  * d[j]);
+      Y[i,j] ~ ordered_logistic(a[j]/sqrt(1 + phi[i]^2*a[j]^2) * theta[i], d[j]);
        // Y[i,j] ~ ordered_logistic(a[j] * theta[i], d[j]);  // normal GRM
     }
   }
