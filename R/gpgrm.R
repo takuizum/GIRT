@@ -1,5 +1,5 @@
 # General IRT + GRM
-
+library(tidyverse)
 
 # response probability----
 gpgrm <- function(theta, phi, a, b, k, D = 1.0){
@@ -31,7 +31,7 @@ bt <- c(-1.5, 0, 1)
 # pgrm(0, a = 2, b = bt, k = 1)
 tibble(theta = c(-4:4)) %>%
   ggplot(aes(x = theta))+
-  stat_function(fun = gpgrm, args = list(a = 2, b = bt, k = 1, D = 1, phi = 100), colour = 2)+
-  stat_function(fun = gpgrm, args = list(a = 2, b = bt, k = 2, D = 1, phi = 100), colour = 3)+
-  stat_function(fun = gpgrm, args = list(a = 2, b = bt, k = 3, D = 1, phi = 100), colour = 4)+
-  stat_function(fun = gpgrm, args = list(a = 2, b = bt, k = 4, D = 1, phi = 100), colour = 6)
+  stat_function(fun = gpgrm, args = list(a = 2, b = bt, k = 1, D = 1, phi = 2), colour = 2)+
+  stat_function(fun = gpgrm, args = list(a = 2, b = bt, k = 2, D = 1, phi = 2), colour = 3)+
+  stat_function(fun = gpgrm, args = list(a = 2, b = bt, k = 3, D = 1, phi = 2), colour = 4)+
+  stat_function(fun = gpgrm, args = list(a = 2, b = bt, k = 4, D = 1, phi = 2), colour = 6)
