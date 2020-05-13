@@ -74,7 +74,7 @@ while(t < 100){
   data <- simdata(a = at, d = -bt*at, Theta = as.matrix(tt), itemtype = "dich") # b = -d/a then d = -a*b
   # GIRT estimation
   fit_gpl <- try(estGip(data, fc = 1, IDc = 0, phi_dist = "gbeta", 
-                        min_ph = 0, max_ph = 4, eEM = 0.0001, Nphi = 10, D = 1.0, maxiter_em = 200))
+                        min_ph = 0, max_ph = 2, eEM = 0.0001, Nphi = 10, D = 1.0, maxiter_em = 200))
   if(class(fit_gpl) == "try-error"){
     t <- t - 1
     next
@@ -87,11 +87,11 @@ while(t < 100){
   # plot
   # discrimination
   par(mfrow=c(2,2)) 
-  plot(at, par_gpl$a, ylim = c(0, 3), xlim = c(0, 3), xlab = "GIRT_estimates", ylab = "true");abline(a=0, b = 1, col='red')
-  plot(at, par_2pl$a, ylim = c(0, 3), xlim = c(0, 3), xlab = "IRT_estimates", ylab = "true");abline(a=0, b = 1, col='red')
+  plot(at, par_gpl$a, ylim = c(0, 3), xlim = c(0, 3), xlab = "a:GIRT_estimates", ylab = "true");abline(a=0, b = 1, col='red')
+  plot(at, par_2pl$a, ylim = c(0, 3), xlim = c(0, 3), xlab = "a:IRT_estimates", ylab = "true");abline(a=0, b = 1, col='red')
   # difficulty
-  plot(bt, par_gpl$b, ylim = c(-4, 4), xlim = c(-4, 4), xlab = "GIRT_estimates", ylab = "true");abline(a=0, b = 1, col='red')
-  plot(bt, par_2pl$b, ylim = c(-4, 4), xlim = c(-4, 4), xlab = "IRT_estimates", ylab = "true");abline(a=0, b = 1, col='red')
+  plot(bt, par_gpl$b, ylim = c(-4, 4), xlim = c(-4, 4), xlab = "b:GIRT_estimates", ylab = "true");abline(a=0, b = 1, col='red')
+  plot(bt, par_2pl$b, ylim = c(-4, 4), xlim = c(-4, 4), xlab = "b:IRT_estimates", ylab = "true");abline(a=0, b = 1, col='red')
   # rmse calc
   rmse_a <- rmse(x = at, y = list(par_gpl$a, par_2pl$a))
   names(rmse_a) <- c("girt", "irt")
@@ -125,7 +125,7 @@ while(t < 100){
   data <- sim_gen(a = at, b = bt, theta = as.matrix(tt), phi = pt, D = 1.0)[,-1] # b = -d/a then d = -a*b
   # GIRT estimation
   fit_gpl <- try(estGip(data, fc = 1, IDc = 0, phi_dist = "gbeta", 
-                        min_ph = 0, max_ph = 4, eEM = 0.0001, Nphi = 10, D = 1.0, maxiter_em = 200))
+                        min_ph = 0, max_ph = 2, eEM = 0.0001, Nphi = 10, D = 1.0, maxiter_em = 200))
   if(class(fit_gpl) == "try-error"){
     t <- t - 1
     next
